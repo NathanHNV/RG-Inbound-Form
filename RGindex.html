@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsible Gaming Escalation Form</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f4f6f9;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 16px;
+    color: #1a1a2e;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e6ea;
+    padding: 40px;
+    width: 100%;
+    max-width: 560px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .form-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e2e6ea;
+  }
+
+  .form-header h1 { font-size: 20px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px; }
+  .form-header p { font-size: 14px; color: #6b7280; line-height: 1.5; }
+
+  .badge {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid #ffc107;
+    margin-bottom: 12px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+
+  label .req { color: #dc2626; margin-left: 2px; }
+
+  input[type="text"], select, textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1a1a2e;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+  }
+
+  input[type="text"]:focus, select:focus, textarea:focus {
+    border-color: #3b5bdb;
+    box-shadow: 0 0 0 3px rgba(59,91,219,0.12);
+  }
+
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #6b7280;
+    pointer-events: none;
+  }
+
+  select { padding-right: 36px; cursor: pointer; }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+
+  .brand-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .brand-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #374151;
+    overflow: hidden;
+    transition: border-color 0.2s, color 0.2s;
+    z-index: 0;
+  }
+
+  /* fill layer */
+  .brand-option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #e8edff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: none;
+    z-index: -1;
+    border-radius: 8px;
+  }
+
+  @keyframes fillLR {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+
+  @keyframes unfillLR {
+    0%   { transform: scaleX(1); }
+    100% { transform: scaleX(0); }
+  }
+
+  .brand-option.filling::before {
+    animation: fillLR 0.35s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+
+  .brand-option.unfilling::before {
+    animation: unfillLR 0.3s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+
+  .brand-option.checked {
+    border-color: #3b5bdb;
+    color: #1e3a8a;
+    font-weight: 600;
+  }
+
+  .brand-option.checked::before { transform: scaleX(1); }
+
+  .brand-option input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: #3b5bdb;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-option span { position: relative; z-index: 1; }
+
+  .notes-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 6px;
+    margin-top: 10px;
+    display: block;
+  }
+
+  /* Submit button */
+  .submit-btn {
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    background: #3b5bdb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    overflow: hidden;
+    transition: background 0.15s;
+    letter-spacing: 0.2px;
+  }
+
+  .submit-btn:hover { background: #2f4abf; }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+
+  @keyframes rippleOut {
+    0%   { transform: scale(0); opacity: 0.5; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  .btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    width: 80px; height: 80px;
+    margin-top: -40px; margin-left: -40px;
+    animation: rippleOut 0.6s ease forwards;
+    pointer-events: none;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  /* Confetti canvas */
+  #confettiCanvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  /* Modal */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay.show { display: flex; }
+
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 36px 32px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .modal-icon {
+    width: 56px; height: 56px;
+    background: #d1fae5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .modal-icon svg { width: 28px; height: 28px; }
+  .modal h2 { font-size: 18px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+  .modal p { font-size: 14px; color: #6b7280; line-height: 1.6; margin-bottom: 24px; }
+  .modal-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    background: #3b5bdb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .modal-btn:hover { background: #2f4abf; }
+
+  .error-msg { font-size: 12px; color: #dc2626; margin-top: 4px; display: none; }
+  .field.error input, .field.error select, .field.error textarea { border-color: #dc2626; }
+  .field.error .error-msg { display: block; }
+</style>
+</head>
+<body>
+
+<canvas id="confettiCanvas"></canvas>
+
+<div class="card">
+  <div class="form-header">
+    <div class="badge">Responsible Gaming</div>
+    <h1>Escalation Form</h1>
+    <p>Complete all fields below to log a responsible gaming escalation. All submissions are recorded securely.</p>
+  </div>
+
+  <form id="rgForm" novalidate>
+
+    <div class="field" id="field-playerName">
+      <label for="playerName">Player Name <span class="req">*</span></label>
+      <input type="text" id="playerName" name="playerName" placeholder="Full name of the player">
+      <span class="error-msg">Please enter the player name.</span>
+    </div>
+
+    <div class="field" id="field-userId">
+      <label for="userId">User ID <span class="req">*</span></label>
+      <input type="text" id="userId" name="userId" placeholder="e.g. 1234567">
+      <span class="error-msg">Please enter the User ID.</span>
+    </div>
+
+    <div class="field" id="field-brand">
+      <label>Brand <span class="req">*</span></label>
+      <div class="brand-grid" id="brandGrid">
+        <label class="brand-option" id="lbl-BCasino">
+          <input type="checkbox" name="brand" value="BCasino"><span>BCasino</span>
+        </label>
+        <label class="brand-option" id="lbl-BooCasino">
+          <input type="checkbox" name="brand" value="BooCasino"><span>BooCasino</span>
+        </label>
+        <label class="brand-option" id="lbl-GalacticWins">
+          <input type="checkbox" name="brand" value="Galactic Wins"><span>Galactic Wins</span>
+        </label>
+        <label class="brand-option" id="lbl-MrFortune">
+          <input type="checkbox" name="brand" value="Mr Fortune"><span>Mr Fortune</span>
+        </label>
+        <label class="brand-option" id="lbl-ImperialWins">
+          <input type="checkbox" name="brand" value="Imperial Wins"><span>Imperial Wins</span>
+        </label>
+      </div>
+      <span class="error-msg" id="brand-error">Please select at least one brand.</span>
+    </div>
+
+    <div class="field" id="field-reason">
+      <label for="reason">Reason for Escalation <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="reason" name="reason">
+          <option value="">— Select a reason —</option>
+          <option value="Self-Exclusion Request">Self-Exclusion Request</option>
+          <option value="Deposit Limit Request">Deposit Limit Request</option>
+          <option value="Loss Limit Request">Loss Limit Request</option>
+          <option value="Reality Check Request">Reality Check Request</option>
+          <option value="Cooling-Off Period Request">Cooling-Off Period Request</option>
+          <option value="Problem Gambling Concern">Problem Gambling Concern</option>
+          <option value="Account Closure - RG Grounds">Account Closure - RG Grounds</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <span class="error-msg" id="reason-error">Please select a reason.</span>
+      <span class="notes-label">Additional notes (optional)</span>
+      <textarea id="reasonNotes" name="reasonNotes" placeholder="Add any extra context or details here…"></textarea>
+    </div>
+
+    <div class="field" id="field-conversationId">
+      <label for="conversationId">Conversation ID <span class="req">*</span></label>
+      <input type="text" id="conversationId" name="conversationId" placeholder="e.g. CNV-0000000">
+      <span class="error-msg">Please enter the Conversation ID.</span>
+    </div>
+
+    <div class="field" id="field-agentName">
+      <label for="agentName">Agent Name <span class="req">*</span></label>
+      <input type="text" id="agentName" name="agentName" placeholder="Your full name">
+      <span class="error-msg">Please enter the agent name.</span>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Submit Escalation</button>
+  </form>
+</div>
+
+<!-- Success modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2>Escalation Submitted</h2>
+    <p>The responsible gaming escalation has been logged successfully and saved to the secure records sheet.</p>
+    <button class="modal-btn" id="newEntryBtn">+ New Entry</button>
+  </div>
+</div>
+
+<script>
+  const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+  const form = document.getElementById('rgForm');
+  const overlay = document.getElementById('overlay');
+  const submitBtn = document.getElementById('submitBtn');
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // ── Brand fill animation ──
+  document.querySelectorAll('.brand-option input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const lbl = cb.closest('.brand-option');
+      lbl.classList.remove('filling', 'unfilling');
+      void lbl.offsetWidth;
+      if (cb.checked) {
+        lbl.classList.add('filling', 'checked');
+        lbl.addEventListener('animationend', () => lbl.classList.remove('filling'), { once: true });
+      } else {
+        lbl.classList.remove('checked');
+        lbl.classList.add('unfilling');
+        lbl.addEventListener('animationend', () => lbl.classList.remove('unfilling'), { once: true });
+      }
+    });
+  });
+
+  // ── Submit ripple ──
+  submitBtn.addEventListener('click', function(e) {
+    if (submitBtn.disabled) return;
+    const r = document.createElement('span');
+    r.className = 'btn-ripple';
+    const rect = submitBtn.getBoundingClientRect();
+    r.style.top = (e.clientY - rect.top) + 'px';
+    r.style.left = (e.clientX - rect.left) + 'px';
+    submitBtn.appendChild(r);
+    r.addEventListener('animationend', () => r.remove());
+  });
+
+  // ── Confetti ──
+  let confettiPieces = [];
+  let animId = null;
+
+  const COLORS = ['#3b5bdb','#f03e3e','#f59f00','#2f9e44','#ae3ec9','#1098ad','#e64980','#fd7e14'];
+
+  function launchConfetti() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    confettiPieces = [];
+
+    for (let i = 0; i < 160; i++) {
+      confettiPieces.push({
+        x: Math.random() * canvas.width,
+        y: -10 - Math.random() * 200,
+        w: 8 + Math.random() * 8,
+        h: 5 + Math.random() * 5,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        angle: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.18,
+        vx: (Math.random() - 0.5) * 3.5,
+        vy: 2.5 + Math.random() * 3.5,
+        opacity: 1
+      });
+    }
+
+    if (animId) cancelAnimationFrame(animId);
+    drawConfetti();
+  }
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+
+    confettiPieces.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.07;
+      p.angle += p.spin;
+      if (p.y > canvas.height * 0.6) p.opacity -= 0.022;
+
+      if (p.opacity > 0) {
+        alive = true;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+    });
+
+    if (alive) {
+      animId = requestAnimationFrame(drawConfetti);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  // ── Validation ──
+  function validate() {
+    let valid = true;
+    ['playerName','userId','conversationId','agentName'].forEach(id => {
+      const field = document.getElementById('field-' + id);
+      const input = document.getElementById(id);
+      if (!input.value.trim()) { field.classList.add('error'); valid = false; }
+      else field.classList.remove('error');
+    });
+
+    const brands = [...document.querySelectorAll('input[name="brand"]:checked')];
+    const brandField = document.getElementById('field-brand');
+    if (brands.length === 0) { brandField.classList.add('error'); valid = false; }
+    else brandField.classList.remove('error');
+
+    const reason = document.getElementById('reason');
+    const reasonField = document.getElementById('field-reason');
+    if (!reason.value) { reasonField.classList.add('error'); valid = false; }
+    else reasonField.classList.remove('error');
+
+    return valid;
+  }
+
+  // ── Submit ──
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+    const brands = [...document.querySelectorAll('input[name="brand"]:checked')]
+      .map(cb => cb.value).join(', ');
+
+    const payload = {
+      playerName: document.getElementById('playerName').value.trim(),
+      userId: document.getElementById('userId').value.trim(),
+      brand: brands,
+      reason: document.getElementById('reason').value,
+      reasonNotes: document.getElementById('reasonNotes').value.trim(),
+      conversationId: document.getElementById('conversationId').value.trim(),
+      agentName: document.getElementById('agentName').value.trim(),
+      timestamp: new Date().toISOString()
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      launchConfetti();
+      setTimeout(() => overlay.classList.add('show'), 300);
+    } catch (err) {
+      alert('Submission failed. Please check your connection and try again.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Submit Escalation';
+    }
+  });
+
+  // ── New Entry ──
+  document.getElementById('newEntryBtn').addEventListener('click', () => {
+    overlay.classList.remove('show');
+    form.reset();
+    document.querySelectorAll('.brand-option').forEach(el => {
+      el.classList.remove('checked','filling','unfilling');
+    });
+    document.querySelectorAll('.field').forEach(el => el.classList.remove('error'));
+  });
+</script>
+</body>
+</html>
