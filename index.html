@@ -9,49 +9,72 @@
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f4f6f9;
+    background: #eef0f5;
     min-height: 100vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 40px 16px;
+    padding: 48px 16px;
     color: #1a1a2e;
   }
 
-  .card {
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #e2e6ea;
-    padding: 40px;
+  .page-wrap {
     width: 100%;
-    max-width: 560px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    max-width: 580px;
   }
 
-  .form-header {
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #e2e6ea;
+  .page-title {
+    text-align: center;
+    margin-bottom: 20px;
   }
 
-  .form-header h1 { font-size: 20px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px; }
-  .form-header p { font-size: 14px; color: #6b7280; line-height: 1.5; }
-
-  .badge {
+  .page-title .badge {
     display: inline-block;
     background: #fff3cd;
     color: #856404;
     font-size: 11px;
     font-weight: 600;
-    padding: 3px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
     border: 1px solid #ffc107;
-    margin-bottom: 12px;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
+    margin-bottom: 10px;
   }
 
-  .field { margin-bottom: 20px; }
+  .page-title h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+
+  .page-title p {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e2e6ea;
+    padding: 36px 40px;
+    width: 100%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #9ca3af;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .field { margin-bottom: 18px; }
 
   label {
     display: block;
@@ -66,12 +89,12 @@
   input[type="text"], select, textarea {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     font-size: 14px;
     color: #1a1a2e;
-    background: #fff;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    background: #f9fafb;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
     appearance: none;
     -webkit-appearance: none;
     outline: none;
@@ -79,8 +102,11 @@
 
   input[type="text"]:focus, select:focus, textarea:focus {
     border-color: #3b5bdb;
-    box-shadow: 0 0 0 3px rgba(59,91,219,0.12);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(59,91,219,0.1);
   }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
   .select-wrap { position: relative; }
   .select-wrap::after {
@@ -92,12 +118,12 @@
     width: 0; height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 6px solid #6b7280;
+    border-top: 6px solid #9ca3af;
     pointer-events: none;
   }
 
   select { padding-right: 36px; cursor: pointer; }
-  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 
   .brand-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
@@ -107,17 +133,17 @@
     align-items: center;
     gap: 8px;
     padding: 10px 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     cursor: pointer;
     font-size: 13px;
     color: #374151;
+    background: #f9fafb;
     overflow: hidden;
     transition: border-color 0.2s, color 0.2s;
     z-index: 0;
   }
 
-  /* fill layer */
   .brand-option::before {
     content: '';
     position: absolute;
@@ -140,13 +166,8 @@
     100% { transform: scaleX(0); }
   }
 
-  .brand-option.filling::before {
-    animation: fillLR 0.35s cubic-bezier(0.4,0,0.2,1) forwards;
-  }
-
-  .brand-option.unfilling::before {
-    animation: unfillLR 0.3s cubic-bezier(0.4,0,0.2,1) forwards;
-  }
+  .brand-option.filling::before { animation: fillLR 0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
+  .brand-option.unfilling::before { animation: unfillLR 0.3s cubic-bezier(0.4,0,0.2,1) forwards; }
 
   .brand-option.checked {
     border-color: #3b5bdb;
@@ -157,7 +178,7 @@
   .brand-option.checked::before { transform: scaleX(1); }
 
   .brand-option input[type="checkbox"] {
-    width: 16px; height: 16px;
+    width: 15px; height: 15px;
     accent-color: #3b5bdb;
     cursor: pointer;
     flex-shrink: 0;
@@ -170,27 +191,28 @@
   .notes-label {
     font-size: 12px;
     font-weight: 500;
-    color: #6b7280;
+    color: #9ca3af;
     margin-bottom: 6px;
     margin-top: 10px;
     display: block;
   }
 
-  /* Submit button */
+  .divider { border: none; border-top: 1px solid #f3f4f6; margin: 24px 0; }
+
   .submit-btn {
     position: relative;
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     background: #3b5bdb;
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 4px;
     overflow: hidden;
-    transition: background 0.15s;
+    transition: background 0.15s, transform 0.1s;
     letter-spacing: 0.2px;
   }
 
@@ -225,7 +247,6 @@
     margin-right: 8px;
   }
 
-  /* Confetti canvas */
   #confettiCanvas {
     position: fixed;
     inset: 0;
@@ -233,7 +254,6 @@
     z-index: 200;
   }
 
-  /* Modal */
   .overlay {
     display: none;
     position: fixed;
@@ -247,16 +267,16 @@
 
   .modal {
     background: #fff;
-    border-radius: 12px;
-    padding: 36px 32px;
+    border-radius: 16px;
+    padding: 40px 32px;
     max-width: 380px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
   }
 
   .modal-icon {
-    width: 56px; height: 56px;
+    width: 60px; height: 60px;
     background: #d1fae5;
     border-radius: 50%;
     display: flex;
@@ -265,11 +285,11 @@
     margin: 0 auto 16px;
   }
   .modal-icon svg { width: 28px; height: 28px; }
-  .modal h2 { font-size: 18px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+  .modal h2 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
   .modal p { font-size: 14px; color: #6b7280; line-height: 1.6; margin-bottom: 24px; }
   .modal-btn {
     display: inline-block;
-    padding: 10px 28px;
+    padding: 11px 32px;
     background: #3b5bdb;
     color: #fff;
     border: none;
@@ -282,7 +302,7 @@
   .modal-btn:hover { background: #2f4abf; }
 
   .error-msg { font-size: 12px; color: #dc2626; margin-top: 4px; display: none; }
-  .field.error input, .field.error select, .field.error textarea { border-color: #dc2626; }
+  .field.error input, .field.error select, .field.error textarea { border-color: #dc2626; background: #fff5f5; }
   .field.error .error-msg { display: block; }
 </style>
 </head>
@@ -290,86 +310,84 @@
 
 <canvas id="confettiCanvas"></canvas>
 
-<div class="card">
-  <div class="form-header">
+<div class="page-wrap">
+  <div class="page-title">
     <div class="badge">Responsible Gaming</div>
     <h1>Escalation Form</h1>
-    <p>Complete all fields below to log a responsible gaming escalation. All submissions are recorded securely.</p>
+    <p>All submissions are logged securely to the records sheet.</p>
   </div>
 
-  <form id="rgForm" novalidate>
+  <div class="card">
+    <div class="section-label">Player Details</div>
 
-    <div class="field" id="field-playerName">
-      <label for="playerName">Player Name <span class="req">*</span></label>
-      <input type="text" id="playerName" name="playerName" placeholder="Full name of the player">
-      <span class="error-msg">Please enter the player name.</span>
-    </div>
+    <form id="rgForm" novalidate>
 
-    <div class="field" id="field-userId">
-      <label for="userId">User ID <span class="req">*</span></label>
-      <input type="text" id="userId" name="userId" placeholder="e.g. 1234567">
-      <span class="error-msg">Please enter the User ID.</span>
-    </div>
-
-    <div class="field" id="field-brand">
-      <label>Brand <span class="req">*</span></label>
-      <div class="brand-grid" id="brandGrid">
-        <label class="brand-option" id="lbl-BCasino">
-          <input type="checkbox" name="brand" value="BCasino"><span>BCasino</span>
-        </label>
-        <label class="brand-option" id="lbl-BooCasino">
-          <input type="checkbox" name="brand" value="BooCasino"><span>BooCasino</span>
-        </label>
-        <label class="brand-option" id="lbl-GalacticWins">
-          <input type="checkbox" name="brand" value="Galactic Wins"><span>Galactic Wins</span>
-        </label>
-        <label class="brand-option" id="lbl-MrFortune">
-          <input type="checkbox" name="brand" value="Mr Fortune"><span>Mr Fortune</span>
-        </label>
-        <label class="brand-option" id="lbl-ImperialWins">
-          <input type="checkbox" name="brand" value="Imperial Wins"><span>Imperial Wins</span>
-        </label>
+      <div class="two-col">
+        <div class="field" id="field-playerName">
+          <label for="playerName">Player Name <span class="req">*</span></label>
+          <input type="text" id="playerName" name="playerName" placeholder="Full name">
+          <span class="error-msg">Required.</span>
+        </div>
+        <div class="field" id="field-userId">
+          <label for="userId">User ID <span class="req">*</span></label>
+          <input type="text" id="userId" name="userId" placeholder="e.g. 1234567">
+          <span class="error-msg">Required.</span>
+        </div>
       </div>
-      <span class="error-msg" id="brand-error">Please select at least one brand.</span>
-    </div>
 
-    <div class="field" id="field-reason">
-      <label for="reason">Reason for Escalation <span class="req">*</span></label>
-      <div class="select-wrap">
-        <select id="reason" name="reason">
-          <option value="">— Select a reason —</option>
-          <option value="Self-Exclusion Request">Self-Exclusion Request</option>
-          <option value="Deposit Limit Request">Deposit Limit Request</option>
-          <option value="Loss Limit Request">Loss Limit Request</option>
-          <option value="Reality Check Request">Reality Check Request</option>
-          <option value="Cooling-Off Period Request">Cooling-Off Period Request</option>
-          <option value="Problem Gambling Concern">Problem Gambling Concern</option>
-          <option value="Account Closure - RG Grounds">Account Closure - RG Grounds</option>
-          <option value="Other">Other</option>
-        </select>
+      <div class="field" id="field-brand">
+        <label>Brand <span class="req">*</span></label>
+        <div class="brand-grid" id="brandGrid">
+          <label class="brand-option"><input type="checkbox" name="brand" value="BCasino"><span>BCasino</span></label>
+          <label class="brand-option"><input type="checkbox" name="brand" value="BooCasino"><span>BooCasino</span></label>
+          <label class="brand-option"><input type="checkbox" name="brand" value="Galactic Wins"><span>Galactic Wins</span></label>
+          <label class="brand-option"><input type="checkbox" name="brand" value="Mr Fortune"><span>Mr Fortune</span></label>
+          <label class="brand-option"><input type="checkbox" name="brand" value="Imperial Wins"><span>Imperial Wins</span></label>
+        </div>
+        <span class="error-msg" id="brand-error">Please select at least one brand.</span>
       </div>
-      <span class="error-msg" id="reason-error">Please select a reason.</span>
-      <span class="notes-label">Additional notes (optional)</span>
-      <textarea id="reasonNotes" name="reasonNotes" placeholder="Add any extra context or details here…"></textarea>
-    </div>
 
-    <div class="field" id="field-conversationId">
-      <label for="conversationId">Conversation ID <span class="req">*</span></label>
-      <input type="text" id="conversationId" name="conversationId" placeholder="e.g. CNV-0000000">
-      <span class="error-msg">Please enter the Conversation ID.</span>
-    </div>
+      <hr class="divider">
+      <div class="section-label">Escalation Details</div>
 
-    <div class="field" id="field-agentName">
-      <label for="agentName">Agent Name <span class="req">*</span></label>
-      <input type="text" id="agentName" name="agentName" placeholder="Your full name">
-      <span class="error-msg">Please enter the agent name.</span>
-    </div>
+      <div class="field" id="field-reason">
+        <label for="reason">Reason for Escalation <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="reason" name="reason">
+            <option value="">— Select a reason —</option>
+            <option value="Self-Exclusion Request">Self-Exclusion Request</option>
+            <option value="Deposit Limit Request">Deposit Limit Request</option>
+            <option value="Loss Limit Request">Loss Limit Request</option>
+            <option value="Reality Check Request">Reality Check Request</option>
+            <option value="Cooling-Off Period Request">Cooling-Off Period Request</option>
+            <option value="Problem Gambling Concern">Problem Gambling Concern</option>
+            <option value="Account Closure - RG Grounds">Account Closure - RG Grounds</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <span class="error-msg">Please select a reason.</span>
+        <span class="notes-label">Additional notes (optional)</span>
+        <textarea id="reasonNotes" name="reasonNotes" placeholder="Add any extra context or details here…"></textarea>
+      </div>
 
-    <button type="submit" class="submit-btn" id="submitBtn">Submit Escalation</button>
-  </form>
+      <div class="two-col">
+        <div class="field" id="field-conversationId">
+          <label for="conversationId">Conversation ID <span class="req">*</span></label>
+          <input type="text" id="conversationId" name="conversationId" placeholder="e.g. CNV-0000000">
+          <span class="error-msg">Required.</span>
+        </div>
+        <div class="field" id="field-agentName">
+          <label for="agentName">Agent Name <span class="req">*</span></label>
+          <input type="text" id="agentName" name="agentName" placeholder="Your full name">
+          <span class="error-msg">Required.</span>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Submit Escalation</button>
+    </form>
+  </div>
 </div>
 
-<!-- Success modal -->
 <div class="overlay" id="overlay" style="display:none">
   <div class="modal">
     <div class="modal-icon">
@@ -392,7 +410,14 @@
   const canvas = document.getElementById('confettiCanvas');
   const ctx = canvas.getContext('2d');
 
-  // ── Brand fill animation ──
+  function resetForm() {
+    form.reset();
+    document.querySelectorAll('.brand-option').forEach(el => {
+      el.classList.remove('checked', 'filling', 'unfilling');
+    });
+    document.querySelectorAll('.field').forEach(el => el.classList.remove('error'));
+  }
+
   document.querySelectorAll('.brand-option input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
       const lbl = cb.closest('.brand-option');
@@ -409,7 +434,6 @@
     });
   });
 
-  // ── Submit ripple ──
   submitBtn.addEventListener('click', function(e) {
     if (submitBtn.disabled) return;
     const r = document.createElement('span');
@@ -421,17 +445,13 @@
     r.addEventListener('animationend', () => r.remove());
   });
 
-  // ── Confetti ──
-  let confettiPieces = [];
-  let animId = null;
-
+  let confettiPieces = [], animId = null;
   const COLORS = ['#3b5bdb','#f03e3e','#f59f00','#2f9e44','#ae3ec9','#1098ad','#e64980','#fd7e14'];
 
   function launchConfetti() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     confettiPieces = [];
-
     for (let i = 0; i < 160; i++) {
       confettiPieces.push({
         x: Math.random() * canvas.width,
@@ -446,7 +466,6 @@
         opacity: 1
       });
     }
-
     if (animId) cancelAnimationFrame(animId);
     drawConfetti();
   }
@@ -454,14 +473,9 @@
   function drawConfetti() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     let alive = false;
-
     confettiPieces.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.07;
-      p.angle += p.spin;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.07; p.angle += p.spin;
       if (p.y > canvas.height * 0.6) p.opacity -= 0.022;
-
       if (p.opacity > 0) {
         alive = true;
         ctx.save();
@@ -473,15 +487,10 @@
         ctx.restore();
       }
     });
-
-    if (alive) {
-      animId = requestAnimationFrame(drawConfetti);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    if (alive) { animId = requestAnimationFrame(drawConfetti); }
+    else { ctx.clearRect(0, 0, canvas.width, canvas.height); }
   }
 
-  // ── Validation ──
   function validate() {
     let valid = true;
     ['playerName','userId','conversationId','agentName'].forEach(id => {
@@ -490,31 +499,23 @@
       if (!input.value.trim()) { field.classList.add('error'); valid = false; }
       else field.classList.remove('error');
     });
-
     const brands = [...document.querySelectorAll('input[name="brand"]:checked')];
     const brandField = document.getElementById('field-brand');
     if (brands.length === 0) { brandField.classList.add('error'); valid = false; }
     else brandField.classList.remove('error');
-
     const reason = document.getElementById('reason');
     const reasonField = document.getElementById('field-reason');
     if (!reason.value) { reasonField.classList.add('error'); valid = false; }
     else reasonField.classList.remove('error');
-
     return valid;
   }
 
-  // ── Submit ──
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
-
-    const brands = [...document.querySelectorAll('input[name="brand"]:checked')]
-      .map(cb => cb.value).join(', ');
-
+    const brands = [...document.querySelectorAll('input[name="brand"]:checked')].map(cb => cb.value).join(', ');
     const payload = {
       playerName: document.getElementById('playerName').value.trim(),
       userId: document.getElementById('userId').value.trim(),
@@ -525,7 +526,6 @@
       agentName: document.getElementById('agentName').value.trim(),
       timestamp: new Date().toISOString()
     };
-
     try {
       await fetch(SCRIPT_URL, {
         method: 'POST',
@@ -534,6 +534,7 @@
         body: JSON.stringify(payload)
       });
       launchConfetti();
+      resetForm();
       setTimeout(() => overlay.classList.add('show'), 300);
     } catch (err) {
       alert('Submission failed. Please check your connection and try again.');
@@ -543,14 +544,8 @@
     }
   });
 
-  // ── New Entry ──
   document.getElementById('newEntryBtn').addEventListener('click', () => {
     overlay.classList.remove('show');
-    form.reset();
-    document.querySelectorAll('.brand-option').forEach(el => {
-      el.classList.remove('checked','filling','unfilling');
-    });
-    document.querySelectorAll('.field').forEach(el => el.classList.remove('error'));
   });
 </script>
 </body>
